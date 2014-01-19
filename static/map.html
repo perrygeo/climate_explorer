@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Climate Explorer</title>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="./dist/leaflet.css" />
+	<style>
+		/* tell the SVG path to be a thin blue line without any area fill */
+		path {
+			stroke: steelblue;
+			stroke-width: 3;
+			stroke-opacity: 0.5;
+			fill: none;
+		}
+		.spark {
+			border-bottom: 1px #eee solid;
+		}
+		.gval {
+			fill: #999;
+			font-family: Verdana;
+			font-size:8pt;
+		}
+		.label {
+			fill: #333;
+			font-family: Verdana;
+			font-size:9pt;
+		}
+	    html, body, #map, #container {
+			height:100%;
+			width:100%;
+			padding:0px;
+			margin:0px;
+		    font-family: Verdana;
+	    } 
+	    #chart-container {
+	        position: absolute;
+	        padding: 20px;
+	        background-color:rgba(255,255,255,0.9);
+		    top: 1%;
+		    right: 1%;
+		    height: 90%;
+		    width: 455px;
+	    }
+   
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="map"></div>
+		<div id="chart-container">
+			<h3> Climate Explorer </h3>
+			<em> Predicted climate change, today to 2090 </em>
+			<div id="charts"><p id="message">Click map to begin...</p></div>
+		</div>
+	</div>
+	<script src="./dist/leaflet.js"></script>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/2.10.0/d3.v2.min.js"></script>
+	<script>
+
+		var map = L.map('map').setView([45.52944, -114.7227], 6);
+
+		L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png', {
+				subdomains: '1234',
+				type: 'osm',
+				attribution: 'Mapquest/OpenStreetMap'
+	    }).addTo(map);
+
+
+		var popup = L.popup({
+			//minWidth: 520,
+			autoPan: true,
+			autoPanPadding: new L.Point(5, 5)
+		});
+		
+		var plotHeight = 45; 
+
+		function onMapClick(e) {
+			var coord = e.latlng;
+			popup
+				.setLatLng(e.latlng)
+				.setContent(e.latlng.toString())
+				.openOn(map);
+			var url = "http://localhost:5000/climate/" + coord.lng + "/" + coord.lat;
+			console.log(url);
+			$('#message').html("Loading...");
+            d3.select("#charts").selectAll("svg").remove();
+			$.ajax({
+			  dataType: 'json',
+			  url: url,
+			  error: function (data) {
+                  $('#message').html("Error loading climate data for this location.");
+			  },
+			  success: function (data) {
+ 	              d3.select("#charts").selectAll("svg").remove();
+			  	  for (var variable in data) {
+			  	  	var obj = data[variable];
+					var graph = d3.select("#charts").append("svg:svg")
+					              .attr("width", "100%").attr("height", plotHeight + "px");
+
+					var gmin = 99999999.0;
+					var gmax = -99999999.0;
+
+					// First loop: determine min/max
+			  	  	for (var climate in obj) {
+			  	  		var d = obj[climate];
+                        var min = Math.min.apply(null, d);
+                        var max = Math.max.apply(null, d);
+                        if (min < gmin) {gmin = min;}
+                        if (max > gmax) {gmax = max;}
+                    }
+
+					// Second loop: plot it
+			  	  	for (var climate in obj) {
+			  	  		var d = obj[climate];
+						var x = d3.scale.linear().domain([0, 3]).range([20, 160]);
+						var y = d3.scale.linear().domain([gmax, gmin]).range([5, plotHeight - 5]);
+						var line = d3.svg.line()
+							.x(function(d,i) {return x(i); }) 
+							.y(function(d) {return y(d); })
+						graph.append("svg:path").attr("d", line(d));    
+						graph.attr('class','spark');         
+						$('#message').html("");
+					}
+					graph.append('svg:text')
+				        .attr('class','gval')
+				        .attr("y", plotHeight/2.0)
+				        .attr("x", 0)
+				        .attr("dy", ".41em")
+				        .style("text-anchor", "start")
+				        .text(d[0]);
+
+				    graph.append('svg:text')
+				        .attr('class','gval')
+				        .attr("y", plotHeight/2.0)
+				        .attr("x", 165)
+				        .attr("dy", ".41em")
+				        .style("text-anchor", "start")
+				        .text(d[d.length-1]);
+
+					graph.append('svg:text')
+				        .attr('class','label')
+				        .attr("y", plotHeight/2.0)
+				        .attr("x", 205)
+				        .attr("dy", ".41em")
+				        .style("text-anchor", "start")
+				        .text(variable);
+			  	  }
+			  },
+			});
+
+		}
+
+		map.on('click', onMapClick);
+
+	</script>
+</body>
+</html>

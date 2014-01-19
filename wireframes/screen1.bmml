@@ -1,0 +1,66 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1137" measuredH="712" mockupW="1068" mockupH="695">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="69" y="17" w="1068" h="695" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::LineChart" x="758" y="170" w="290" h="111" measuredW="187" measuredH="175" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::CallOut" x="413" y="205" w="-1" h="-1" measuredW="38" measuredH="40" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="771" y="169" w="-1" h="-1" measuredW="109" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Mean%20Precipitation</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::LineChart" x="758" y="305" w="290" h="111" measuredW="187" measuredH="175" zOrder="3" locked="false" isInGroup="-1"/>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="771" y="304" w="-1" h="-1" measuredW="111" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Mean%20Temperature</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::LineChart" x="758" y="436" w="290" h="111" measuredW="187" measuredH="175" zOrder="5" locked="false" isInGroup="-1"/>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="771" y="433" w="-1" h="-1" measuredW="146" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Days%20above%205%20degrees%20C</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::SubTitle" x="119" y="113" w="-1" h="-1" measuredW="181" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Climate%20Explorer</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::Label" x="118" y="140" w="-1" h="-1" measuredW="109" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Click%20map%20to%20begin</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Label" x="780" y="547" w="-1" h="-1" measuredW="247" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Current%20%20%20%20%20%20%20%20%202030%20%20%20%20%20%20%20%20%202060%20%20%20%20%20%20%20%20%202090</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::Image" x="119" y="170" w="566" h="407" measuredW="720" measuredH="480" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>http%3A//eoimages.gsfc.nasa.gov/images/imagerecords/79000/79247/oregon_tm5_2011300.jpg</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::Label" x="1042" y="206" w="-1" h="-1" measuredW="42" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>rcp%204.5</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Label" x="1043" y="179" w="-1" h="-1" measuredW="42" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>rcp%206.0</text>
+      </controlProperties>
+    </control>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::Button" x="758" y="609" w="-1" h="-1" measuredW="334" measuredH="27" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>screen2%26bm%3Bscreen2.bmml%26bm%3Bscreen2.bmml%26bm%3Bscreen2.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22689%2C592%2C1023%2C619%22%20href%3D%22screen2.bmml%22%20alt%3D%22screen2%22%20id%3D%2216%22/%3E</map>
+        <text>Find%20current%20analogs%20to%20your%20predicted%20future%20climate</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
