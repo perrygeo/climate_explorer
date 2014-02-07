@@ -10,8 +10,8 @@
 	<style>
 		/* tell the SVG path to be a thin blue line without any area fill */
 		path {
-			stroke: steelblue;
-			stroke-width: 3;
+			stroke: black;
+			stroke-width: 1.6;
 			stroke-opacity: 0.5;
 			fill: none;
 		}
@@ -75,22 +75,44 @@
 			autoPan: true,
 			autoPanPadding: new L.Point(5, 5)
 		});
-		
+		var marker;
 		var plotHeight = 45; 
 
 		function onMapClick(e) {
 			var coord = e.latlng;
-			popup
-				.setLatLng(e.latlng)
-				.setContent(e.latlng.toString())
-				.openOn(map);
-			var url = "http://localhost:5000/climate/" + coord.lng + "/" + coord.lat;
-			console.log(url);
+			// popup
+			// 	.setLatLng(e.latlng)
+			// 	.setContent(e.latlng.toString())
+			// 	.openOn(map);
+			var climate_url = "http://localhost:5000/climate/" + coord.lng + "/" + coord.lat;
+			var analog_url = "http://localhost:5000/current_analog/" + coord.lng + "/" + coord.lat;
 			$('#message').html("Loading...");
             d3.select("#charts").selectAll("svg").remove();
+            if (marker) {
+	            map.removeLayer(marker);
+	        }
+
+            $.ajax({
+			  dataType: 'json',
+			  url: analog_url,
+			  error: function (data) {
+                  $('#message').html("Error loading climate analogs for this location.");
+			  },
+			  success: function (data) {
+			  	  var pt = data.point;
+			  	  console.log(pt);
+			  	  marker = L.marker([pt[1], pt[0]]).addTo(map);
+			  // 	  marker = L.circle([pt[1], pt[0]], 50000, {
+					//     color: 'red',
+					//     fillColor: '#ff0033',
+					//     fillOpacity: 0.5
+					// }).addTo(map);
+			  }
+            });
+
 			$.ajax({
 			  dataType: 'json',
-			  url: url,
+			  url: climate_url,
 			  error: function (data) {
                   $('#message').html("Error loading climate data for this location.");
 			  },

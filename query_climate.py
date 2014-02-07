@@ -14,9 +14,9 @@ def raster_path(year, climate, variable):
 
 years = [1990, 2030, 2060, 2090]
 climates = [
-    "Ensemble_rcp45",
+    #"Ensemble_rcp45",
     "Ensemble_rcp60",
-    "Ensemble_rcp85",
+    #"Ensemble_rcp85",
 ]
 variables = [
     ('mat_tenths', 'Mean Annual Temperature'),
