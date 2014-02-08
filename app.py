@@ -20,8 +20,7 @@ def get_climate(lon, lat):
 def get_analog(lon, lat):
     pt = (float(lon), float(lat))
     data = query_analog(pt)
-    print "!!!!!!!!!!!!!", data
-    return jsonify({'point': data})
+    return jsonify({'points': data})
 
 if __name__ == '__main__':
     app.run(debug = True)

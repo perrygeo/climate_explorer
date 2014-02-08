@@ -44,6 +44,9 @@
 		    height: 90%;
 		    width: 455px;
 	    }
+	    .leaflet-container {
+			cursor: crosshair;
+     	}
    
 	</style>
 </head>
@@ -70,27 +73,38 @@
 	    }).addTo(map);
 
 
-		var popup = L.popup({
-			//minWidth: 520,
-			autoPan: true,
-			autoPanPadding: new L.Point(5, 5)
-		});
-		var marker;
+		// var popup = L.popup({
+		// 	//minWidth: 520,
+		// 	autoPan: true,
+		// 	autoPanPadding: new L.Point(5, 5)
+		// });
+        var circle;
+		var markers = [];
 		var plotHeight = 45; 
 
 		function onMapClick(e) {
 			var coord = e.latlng;
 			// popup
-			// 	.setLatLng(e.latlng)
-			// 	.setContent(e.latlng.toString())
-			// 	.openOn(map);
+			//  	.setLatLng(coord)
+			//  	.setContent(parseInt(coord.lng*100)/100 + " " + parseInt(coord.lat*100)/100)
+			//  	.openOn(map);
+
 			var climate_url = "http://localhost:5000/climate/" + coord.lng + "/" + coord.lat;
 			var analog_url = "http://localhost:5000/current_analog/" + coord.lng + "/" + coord.lat;
 			$('#message').html("Loading...");
             d3.select("#charts").selectAll("svg").remove();
-            if (marker) {
+            for (var i = markers.length - 1; i >= 0; i--) {
+            	var marker = markers[i];
 	            map.removeLayer(marker);
-	        }
+            };
+            if (circle) {
+	            map.removeLayer(circle);
+            }
+			circle = L.circle(coord, 10000, {
+			    color: 'red',
+			    fillColor: '#f03',
+			    fillOpacity: 0.5
+			}).addTo(map);
 
             $.ajax({
 			  dataType: 'json',
@@ -99,14 +113,13 @@
                   $('#message').html("Error loading climate analogs for this location.");
 			  },
 			  success: function (data) {
-			  	  var pt = data.point;
-			  	  console.log(pt);
-			  	  marker = L.marker([pt[1], pt[0]]).addTo(map);
-			  // 	  marker = L.circle([pt[1], pt[0]], 50000, {
-					//     color: 'red',
-					//     fillColor: '#ff0033',
-					//     fillOpacity: 0.5
-					// }).addTo(map);
+			  	  var pts = data.points;
+                  for (var i = pts.length - 1; i >= 0; i--) {
+                  	var pt = pts[i];
+			  	    markers.push( 
+			  	    	L.marker([pt[1], pt[0]]).addTo(map)
+			  	    );
+                  };
 			  }
             });
 
