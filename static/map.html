@@ -89,8 +89,8 @@
 			//  	.setContent(parseInt(coord.lng*100)/100 + " " + parseInt(coord.lat*100)/100)
 			//  	.openOn(map);
 
-			var climate_url = "http://localhost:5000/climate/" + coord.lng + "/" + coord.lat;
-			var analog_url = "http://localhost:5000/current_analog/" + coord.lng + "/" + coord.lat;
+			var climate_url = "/climate/" + coord.lng + "/" + coord.lat;
+			var analog_url = "/current_analog/" + coord.lng + "/" + coord.lat;
 			$('#message').html("Loading...");
             d3.select("#charts").selectAll("svg").remove();
             for (var i = markers.length - 1; i >= 0; i--) {

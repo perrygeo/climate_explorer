@@ -4,6 +4,8 @@ from query_climate import query_climate
 from climate_analogs import query_analog
 
 app = Flask(__name__)
+app.debug = True
+application = app
 
 @app.route('/', methods = ['GET'])
 def base_climate():
@@ -24,3 +26,4 @@ def get_analog(lon, lat):
 
 if __name__ == '__main__':
     app.run(debug = True)
+

@@ -122,7 +122,7 @@ means = np.mean(clims, axis=0)
 
 # Prepare nearest neighbor search space
 scaled_clims = scale_data(clims, stds, means)
-search_space = NearestNeighbors(n_neighbors=10, algorithm='ball_tree').fit(scaled_clims)
+search_space = NearestNeighbors(n_neighbors=3, algorithm='ball_tree').fit(scaled_clims)
 
 print
 print "Ready!"
